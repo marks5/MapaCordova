@@ -54,6 +54,7 @@
         Márcio Gabriel and Michael Becker
     </author>
     <content src="index.html" />
+    <preference name="LoadUrlTimeoutValue" value="70000" />
     <access origin="*" />
     <allow-navigation href="*" />
     <allow-intent href="http://*/*" />

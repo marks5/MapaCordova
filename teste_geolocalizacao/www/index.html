@@ -102,7 +102,11 @@
     <!--Nessa div entra o mapa, ou deveria.-->
     <div id="map"></div>
     <!--Fim da div do mapa -->
-    <script type="text/javascript" src="js/script.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+    <script type="text/javascript"  src="js/common.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <!--<script type="text/javascript" src="js/script.js"></script>-->
     <script>
    /*Função que pega a localização atual do aparelho assim que o aplicativo abre, testada e funcionando... só não funciona aqui :'(*/
 document.addEventListener("deviceready", onDeviceReady , false);
@@ -110,8 +114,6 @@ var latitude = null;
 var longitude = null;
 var meulocal = null;
 function onDeviceReady(){
-
-      $.mobile.loading("show");
       navigator.geolocation.getCurrentPosition(onSuccess, onError, getOptions());
     }
         
@@ -121,13 +123,13 @@ function onDeviceReady(){
         window.alert("Latitude: " + latitude + " Longitude: " + longitude);
         meulocal = latitude + "," + longitude;
         window.alert("Meu local: " +meulocal);
-        $.mobile.loading("hide");
+        
     };
 
     function onError(error) {
         alert("Code: "    + error.code    + "\n" +
             "Message: " + error.message + "\n");
-        $.mobile.loading("hide");
+        
     }
 
     function getOptions() {
@@ -139,6 +141,7 @@ function onDeviceReady(){
     }
 /*Fim da função que pega a localização do aparelho que está funcionando, mas não aqui :'( */
 /*Função do maps, chamada no callback lá no final da página*/
+
  function initMap() {
 
   var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -180,8 +183,7 @@ function onDeviceReady(){
 /*Fim da função do maps*/
     </script>
     <!--Importações necessárias pra rodar no cordova. -->
-    <script type="text/javascript"  src="js/common.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
+    
     <!--Fim das importações do cordova -->
     <!--Onde o google maps pega o mapa, atenção no https e no callback-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIzJXpNSHjNEvNXK0kHLd-ajCXGxnO07M&callback=initMap"
