@@ -5,79 +5,81 @@
     <meta charset="utf-8">
     <title>Displaying text directions with <code>setPanel()</code></title>
     <!--Me desculpe pelo css estar aqui, mas é como está no exemplo do google maps e como eu já estou tentando fazer essa PORRA funcionar a alguns dias resolvi mexer o mínimo possível no código original do site do google. -->
+    <!-- tá perdoado (Cris) -->
     <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-#floating-panel {
-  position: absolute;
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
- 
-#right-panel {
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
- 
-#right-panel select, #right-panel input {
-  font-size: 15px;
-}
- 
-#right-panel select {
-  width: 100%;
-}
- 
-#right-panel i {
-  font-size: 12px;
-}
- 
-      #right-panel {
-        height: 100%;
-        float: right;
-        width: 120px;
-        overflow: auto;
-      }
- 
-      #map {
-        margin-right: 120px;
-      }
- 
-      #floating-panel {
-        background: #fff;
-        padding: 5px;
-        font-size: 14px;
-        font-family: Arial;
-        border: 1px solid #ccc;
-        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
-        display: none;
-      }
- 
-      @media print {
-        #map {
-          height: 500px;
-          margin: 0;
-        }
- 
-        #right-panel {
-          float: none;
-          width: auto;
-        }
-      }
+      
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		#map {
+			height: 75%;
+		}
+
+		#floating-panel {
+			position: absolute;
+			top: 10px;
+			left: 25%;
+			z-index: 5;
+			background-color: #fff;
+			padding: 5px;
+			border: 1px solid #999;
+			text-align: center;
+			font-family: 'Roboto','sans-serif';
+			line-height: 30px;
+			padding-left: 10px;
+		}
+
+		#right-panel {
+			font-family: 'Roboto','sans-serif';
+			line-height: 30px;
+			padding-left: 10px;
+		}
+
+		#right-panel select, #right-panel input {
+			font-size: 15px;
+		}
+
+		#right-panel select {
+			width: 100%;
+		}
+
+		#right-panel i {
+			font-size: 12px;
+		}
+
+		#right-panel {
+			height: 25%;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			overflow: auto;
+		}
+
+		#floating-panel {
+			background: #fff;
+			padding: 5px;
+			font-size: 14px;
+			font-family: Arial;
+			border: 1px solid #ccc;
+			box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+			display: none;
+		}
+
+			@media print {
+				#map {
+				  height: 500px;
+				  margin: 0;
+				}
+
+				#right-panel {
+				  float: none;
+				  width: auto;
+				}
+			}
+
     </style>
     <!-- Fim do css -->
   </head>
@@ -110,9 +112,9 @@
     <script>
    /*Função que pega a localização atual do aparelho assim que o aplicativo abre, testada e funcionando... só não funciona aqui :'(*/
 document.addEventListener("deviceready", onDeviceReady , false);
-var latitude;
-var longitude;
-var meulocal;
+var latitude = null;
+var longitude = null;
+var meulocal = null;
 function onDeviceReady(){
       navigator.geolocation.getCurrentPosition(onSuccess, onError, getOptions());
     }
@@ -163,14 +165,13 @@ function onDeviceReady(){
      calculateAndDisplayRoute(directionsService, directionsDisplay);
    };
    document.getElementById('end').addEventListener('change', onChangeHandler);
- 
+  
    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
    var end = document.getElementById('end').value;
-	console.log(end);
    directionsService.route({
    	//Na linha abaixo deveriam entrar a latitude e a longitude do aparelho para gerar a rota.
      origin: {lat: latitude, lng: longitude},
-     destination: meulocal,
+     destination: end,
      travelMode: google.maps.TravelMode.TRANSIT
    }, function(response, status) {
      if (status === google.maps.DirectionsStatus.OK) {
