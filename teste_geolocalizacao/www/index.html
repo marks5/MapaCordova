@@ -110,9 +110,9 @@
     <script>
    /*Função que pega a localização atual do aparelho assim que o aplicativo abre, testada e funcionando... só não funciona aqui :'(*/
 document.addEventListener("deviceready", onDeviceReady , false);
-var latitude = null;
-var longitude = null;
-var meulocal = null;
+var latitude;
+var longitude;
+var meulocal;
 function onDeviceReady(){
       navigator.geolocation.getCurrentPosition(onSuccess, onError, getOptions());
     }
@@ -163,13 +163,14 @@ function onDeviceReady(){
      calculateAndDisplayRoute(directionsService, directionsDisplay);
    };
    document.getElementById('end').addEventListener('change', onChangeHandler);
-  
+ 
    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
    var end = document.getElementById('end').value;
+	console.log(end);
    directionsService.route({
    	//Na linha abaixo deveriam entrar a latitude e a longitude do aparelho para gerar a rota.
      origin: {lat: latitude, lng: longitude},
-     destination: end,
+     destination: meulocal,
      travelMode: google.maps.TravelMode.TRANSIT
    }, function(response, status) {
      if (status === google.maps.DirectionsStatus.OK) {
